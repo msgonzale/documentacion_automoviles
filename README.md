@@ -95,9 +95,28 @@ RT-02 – Lenguaje GoLang
 El backend deberá ser desarrollado en el lenguaje GoLang.
 
 
-# Diagrama de clase 
+## Diagrama de clase 
 
 ![Diagrama de clases](diagramaClase.png)
+
+
+# Drivers arquitectonicos 
+## Mapa de empatia
+El mapa de empatia es importante porque nos ayuda a tener una clara claridad para entender que necesitan los usuarios, como elegir un taller mecanico, como quieren buscar un servicio, que problemas quieren resolver rapido, como desean pagar sus servicios, tener mas confianza en los talleres automoviles, sin tener claro este analisis, la comprension, el diseño y el desarrollo quedarian en el aire.
+
+| Atributos de Calidad | Usuario | Empleados | Jefe | Total | Puntuación Global |
+|----------------------|---------|-----------|------|-------|-------------------|
+| Confiabilidad        | 2       | 1         | 2    | 5     | 4%                |
+| Seguridad            | 3       | 2         | 1    | 6     | 4%                |
+| Disponibilidad       | 1       | 6         | 5    | 12    | 9%                |
+| Usabilidad           | 4       | 5         | 4    | 13    | 10%               |
+| Trazabilidad         | 5       | 7         | 3    | 15    | 11%               |
+| Eficiencia           | 6       | 3         | 9    | 18    | 13%               |
+| Escalabilidad        | 8       | 4         | 6    | 18    | 13%               |
+| Mantenimiento        | 7       | 8         | 8    | 23    | 17%               |
+| Internacionalidad    | 9       | 9         | 7    | 25    | 19%               |
+| **Totales**          | **45**  | **45**    | **45** | **135** | **100%**      |
+
 
 
 
