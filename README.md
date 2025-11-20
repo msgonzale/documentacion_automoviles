@@ -281,11 +281,179 @@ La solución está diseñada bajo un enfoque **cloud-agnostic**, escalables y de
 # Este es el diagrama de despliegue
 ## Arquitectura de referencia 
 
+![](arquictetura.png)
 
 
 ## Arquetipo de referencia
 
+![](arquetipo.png)
+
 ## El porque de las herramientas
+
+Estas son las herramientas de la aplicacion de app automoviles, basandonos que nuestro usuarios nos expreso que el proyecto tenia pocos costos, nos basamos en encontrar servicios de muy bajos costos pero que fueran adaptables a nuestra aplicación 
+
+
+Cloudflare WAF
+Beneficios
+1.	Protege la plataforma contra los ataques web más comunes (SQL Injection, XSS, etc.).
+2.	Mitiga ataques de denegación de servicio a nivel de red (capas 3/4) y de aplicación (capa 7).
+3.	Proporciona un cifrado HTTPS seguro entre el usuario y tu plataforma.
+Ventajas 
+1.	Bajo costo (Gratis/Pro): El WAF ya está incluido en los planes superiores y algunas funciones son accesibles con reglas de Firewall en el plan gratuito.
+2.	Ahorro de tiempo/personal: No requiere personal de seguridad altamente especializado para la configuración inicial.
+
+Por que se selecciono 
+Maximiza la seguridad y el rendimiento con el mínimo costo, gracias a su robusto plan gratuito y asequible plan, No tienes que comprar ni mantener un hardware o software WAF en tu propio servidor
+
+Por qué no las demás Alternativas
+-	AWS WAF (o Azure/GCP WAF): puede ser impredecible y muy costoso rápidamente si hay picos de tráfico o ataques. La configuración también puede ser más compleja.
+-	ModSecurity (WAF de Código Abierto): Aunque es gratuito, requiere ser instalado y configurado directamente en el servidor, exige mucho tiempo de un ingeniero para configurarlo, actualizar las reglas y monitorearlo constantemente, lo que se traduce en un costo laboral muy alto para un proyecto de bajo presupuesto.
+-	WAF de Proveedores Premium (Imperva, Akamai): Son soluciones de nivel empresarial con precios que comienzan muy por encima del presupuesto de un proyecto inicial. Están diseñados para grandes corporaciones que necesitan características muy específicas y no son viables para un proyecto que busca reducir el costo.
+
+
+fontend - angular + react
+Ambas tecnologías están diseñadas para manejar la complejidad y el crecimiento de aplicaciones empresariales.
+-	Angular: Respaldado por Google, Es un Framework muy completo en el mercado, Ofrece una arquitectura modular y patrones predefinidos (como Inyección de Dependencia y RxJS) que fuerzan la coherencia en el código. Esto es crucial para la escalabilidad a largo plazo y la mantenibilidad del proyecto, especialmente cuando el equipo crece y las funcionalidades (como el agendamiento o la gestión de inventario) se vuelven muy complejas. Su uso nativo de TypeScript reduce errores en producción.
+-	React: Es una Librería flexible Su escalabilidad se basa en la composición de componentes, permitiendo reutilizar piezas de UI y lógica de manera eficiente para construir vistas dinámicas (por ejemplo, un panel de control de servicios en tiempo real).
+
+Por qué no las demás Alternativas
+-	Vue.js : Es una excelente alternativa a React (y a menudo más sencillo), pero su comunidad es más pequeña. Esto puede hacer que sea más difícil y, por lo tanto, más costoso encontrar soluciones específicas.
+-	Vanilla JS/jQuery: Aunque el código inicial es simple, no usar un framework moderno significa que tu código se volverá inmanejable y costoso de mantener (refactorizar, añadir nuevas funciones) una vez que crezca. El costo de mantenimiento superará rápidamente el ahorro inicial.
+
+
+cloudflare acess
+Ventajas
+1.	Ahorro de Infraestructura/Mantenimiento: Te evita el costo y la complejidad de configurar, mantener y escalar un servidor VPN
+2.	No tienes que construir tu propio sistema de inicio de sesión seguro o MFA, ya que Cloudflare lo gestiona por ti.
+3.	Permite a los empleados iniciar sesión usando sus identidades existentes (Google, Microsoft/Azure AD, Okta, etc.) con políticas de Acceso Condicional.
+
+Por qué se selecciono 
+1.	permite implementar una seguridad de acceso de nivel empresarial a una fracción del costo, o incluso gratis durante la fase inicial de tu proyecto.
+2.	Asegurar la API del Backend: Solo los servicios y usuarios autenticados pueden acceder a las API que manejan datos sensibles (clientes, historial de vehículos).
+3.	Proteger Herramientas Internas: Restringir el acceso a paneles de administración, bases de datos o herramientas de gestión de inventario solo a los empleados autorizados sin exponerlos a internet.
+4.	Gestión de Terceros: Ofrecer acceso temporal y estricto a contratistas o proveedores externos (ej. software de contabilidad) utilizando sus identidades sociales o corporativas, sin dudar de la seguridad.
+Por qué no las demás Alternativas
+1.	AWS Cognito / Azure AD B2C: Si bien son soluciones robustas, su modelo de precios (especialmente después del nivel gratuito) se basa en usuarios activos mensuales y el número de autenticaciones, lo que puede volverse caro e impredecible a medida que la plataforma crece. También requieren más esfuerzo de desarrollo para integrarse en tu aplicación.
+2.	Código Abierto (Keycloak, FreeIPA): Son gratuitos, pero requieren servidores dedicados para su alojamiento (costo de infraestructura) y un personal de ingeniería especializado (costo laboral) para su configuración, mantenimiento, actualización y parches de seguridad. Esto anula cualquier ahorro de licencia inicial.
+3.	VPN Tradicional (OpenVPN, WireGuard): Las VPNs son difíciles de escalar y mantener. El acceso se otorga a toda la red, violando el principio de privilegio mínimo. El costo de tiempo de los ingenieros para gestionar las claves, la infraestructura y solucionar problemas es significativamente mayor que el modelo as-a-service de Cloudflare.
+
+
+Key Vault firebase app check
+Ventajas
+1.	 Seguridad y Centralización: Almacena todos los secretos (claves de API, credenciales de base de datos, tokens de terceros) fuera de tu código y configuración. Esto evita la exposición accidental de información sensible en repositorios o archivos de configuración.
+2.	Rotación y Versionado Simple: Permite rotar los secretos (cambiar contraseñas o claves) sin necesidad de modificar y volver a desplegar la aplicación completa. Esto reduce el costo de tiempo de inactividad y el riesgo de error humano en la gestión de credenciales.
+3.	Modelo de Precios de Pago por Uso: Azure Key Vault opera con un modelo de costos basado en transacciones (por cada vez que tu aplicación solicita un secreto). En proyectos iniciales con poco tráfico, el costo mensual puede ser muy bajo o incluso gratuito hasta un cierto umbral de operaciones.
+4.	Integración Nativas: Se integra de forma nativa y segura con otros servicios de Azure, facilitando el acceso a los secretos mediante Identidades Administradas, un método que elimina la necesidad de gestionar credenciales para acceder al propio Key Vault.
+5.	Protección de Datos: Asegura que los datos en la base de datos solo puedan ser modificados por la aplicación frontend, y no por un atacante que haya adivinado la URL de tu API.
+
+Por qué se selecciono 
+Firebase App Check protege el backend (y otros servicios de Firebase) asegurando que las llamadas a la API provengan únicamente de la aplicación legítima. Asegurando los secretos de la plataforma de servicios automotrices ya que ofrece seguridad de nivel empresarial con un costo operacional bajo para las etapas tempranas del proyecto.
+
+Por qué no las demás Alternativas
+-	Almacenamiento Local (Archivos .env): Exponer secretos en archivos de configuración en el servidor es una vulnerabilidad alta. El costo de una brecha (multas, pérdida de reputación) es inasumible para un proyecto de bajo presupuesto.
+-	AWS Secrets Manager / Google Secret Manager: introduce complejidad, fricción y potencialmente costos de latencia o transferencia de datos, creando dependencia de la nube
+-	HashiCorp Vault (Open Source): Aunque es gratuito, requiere servidores, configuración, mantenimiento y orquestación. El costo laboral y de infraestructura supera el costo de un servicio gestionado como Key Vault en la fase inicial.
+-	WAFs Avanzados (Cloudflare Enterprise): Los servicios WAF que intentan hacer validación de aplicación legítima (no solo de ataques de red) son costosos y están dirigidos a grandes empresas.
+-	Captchas Constantes: Si bien es gratuito, forzar a los usuarios a resolver captchas constantemente destruye la experiencia de la plataforma y provoca la pérdida de clientes, lo que tiene un costo indirecto en la retención de usuarios.
+
+
+Monitoring plataforms firebase crashytics
+Ventajas
+1.	completamente gratuito dentro del plan Spark (el plan sin costo de Firebase), incluso para aplicaciones con millones de usuarios. Te permite ahorrar el costo de licencias o suscripciones mensuales que tendrían otras herramientas.
+2.	Informes en Tiempo Real: Proporciona informes de fallos detallados (incluyendo el seguimiento de pila - stack trace) y alertas en tiempo real
+3.	Agrupa automáticamente miles de fallos reportados en problemas individuales según la causa raíz (la línea de código o la función responsable). Esto facilita la priorización de los errores que afectan a más usuarios o que son más graves.
+4.	Se integra de manera fluida con otras herramientas de Firebase que ya podrías estar usando (como App Check y Analytics), ofreciendo un contexto más rico sobre lo que estaba haciendo el usuario antes del fallo.
+5.	Multiplataforma: Ofrece SDKs para Android, iOS, Web etc. 
+
+Por qué se selecciono 
+proporciona una visibilidad completa de la estabilidad de la aplicación sin incurrir en costos directos de licencia 
+
+Por qué no las demás Alternativas
+-	Sentry: la plataforma de servicios automotrices crece y experimenta más tráfico y fallos, el costo por eventos adicionales puede volverse alto, impredecible y penalizador. Sentry es más completo, pero ese costo extra no se justifica en la etapa inicial de bajo presupuesto.
+-	Rollbar / Bugsnag: son herramientas robustas, pero sus planes gratuitos son más limitados en volumen o retención de datos. 
+-	Monitoreo Propio (Logs): Crear tu propia infraestructura de logging centralizada y rastreo de errores es un trabajo de tiempo completo que requiere servidores y bases de datos dedicadas para almacenar terabytes de logs, lo que anula el ahorro en el software.
+
+
+API gateway spring cloud api gateway
+Ventajas
+1.	Es completamente gratuito bajo la licencia Apache 2.0. No hay costos de licencia ni suscripciones fijas.
+2.	El desarrollo de microservicios de backend con Spring Boot/Java, la integración es automática y natural.
+3.	Está construido sobre un modelo de programación no bloqueante (Spring WebFlux), lo que le permite manejar un gran número de conexiones concurrentes con un uso de recursos (CPU/memoria) muy eficiente.
+4.	Permite aplicar filtros globales o específicos a las rutas para tareas como autenticación (validar tokens JWT), límite de tasa (rate limiting) y logging (registro de peticiones).
+
+Por qué se selecciono 
+Proporciona una funcionalidad de puerta de enlace de nivel profesional (enrutamiento, seguridad, rendimiento) sin ningún costo de licencia y con un costo operacional bajo
+
+Por qué no las demás Alternativas
+-	AWS API Gateway / Azure API Management: sus modelos de precios (basados en el número de solicitudes y la transferencia de datos) pueden volverse muy caros e impredecibles a medida que la plataforma crece.
+-	Kong Gateway (Open Source): de código abierto, pero a menudo se implementa con contenedores (Docker/Kubernetes) y requiere una base de datos (PostgreSQL/Cassandra) para su configuración, lo que aumenta la complejidad y el costo de mantenimiento/operación en la fase inicial.
+
+Notification caralog frebase cloud mesagging
+Ventajas
+1.	Es 100% gratuito. No tiene límites de usuarios ni de volumen de mensajes enviados, incluso a escala.
+2.	Maneja la complejidad de enviar notificaciones a través de los diferentes servicios nativos (APNS de Apple, canales de Google Play Services)
+3.	El equipo no necesita construir ni mantener integraciones separadas para iOS, Android y Web, lo que reduce el costo laboral.
+4.	Respaldado por la infraestructura de Google, garantiza una alta tasa de entrega, incluso en picos de tráfico (ej. enviando una notificación de "servicio terminado" a miles de clientes simultáneamente).
+
+Por qué se selecciono 
+es la forma más confiable, sencilla y económica de implementar una función crítica para una plataforma de servicios: la comunicación con el cliente sobre el estado de su servicio (cita confirmada, lavado completado, recordatorio de pago, etc.). Permite enfocar el presupuesto limitado en el desarrollo del núcleo de la plataforma, delegando la complejidad de las notificaciones a Google.
+
+Por qué no las demás Alternativas
+-	Servicios Comerciales (Twilio Notify, OneSignal): suelen tener modelos de precios escalonados (por número de usuarios o por volumen de mensajes).
+-	Implementación Propia (Usando APNS y FCM Directo): Esto requeriría que el equipo maneje la gestión de tokens, la infraestructura de colas de mensajes y el cumplimiento de las políticas de Apple y Google. Este costo laboral es extremadamente alto y complejo de mantener.
+-	Usar solo Correo Electrónico/SMS: Aunque el correo electrónico puede ser gratuito, el SMS tiene un costo directo por mensaje que se acumula rápidamente. Además, las notificaciones push son mucho más inmediatas y efectivas para la comunicación crítica del servicio.
+
+
+real time reservation google cloud frescore
+Ventajas
+1.	Permite a el frontend (React/Angular) escuchar cambios en la base de datos sin necesidad de consultas constantes
+2.	Costo Inicial Cero: Permite lanzar la plataforma y manejar los primeros miles de usuarios sin costo, manteniendo el presupuesto bajo control.
+3.	Se escala automáticamente para manejar el crecimiento de usuarios y la carga de transacciones sin requerir configuración manual.
+
+Por qué se selecciono 
+ofrece sincronización en tiempo real y funcionalidad offline, ideal para la aplicación que requiere actualizaciones de estado instantáneas (como la disponibilidad de citas). Soporta transacciones ACID para garantizar que dos clientes no puedan reservar el mismo horario simultáneamente, lo cual es fundamental para la integridad de un servicio automotriz.
+
+Por qué no las demás Alternativas
+-	Base de Datos Relacional (PostgreSQL/MySQL): Alto Costo de Ingeniería para Tiempo Real
+-	MongoDB Atlas: puede tener costos de infraestructura y clustering más explícitos y altos que el modelo de "pago por uso de lecturas/escrituras" de Firestore. Además, su sincronización en tiempo real es a través de MongoDB Realm, lo que añade otra capa.
+-	Google Cloud Realtime Database: Aunque también es tiempo real, su estructura de datos (un solo árbol JSON gigante) es menos flexible y más difícil de consultar y escalar que la estructura de colecciones y documentos de Firestore.
+
+
+Notification Catalog firebase Cloud Messaging 
+Es un editor visual de notificaciones dentro de Firebase Cloud Messaging.
+Sirve para crear, probar, previsualizar y guardar notificaciones.
+
+External supplier service
+permite conectar, gestionar o comunicarse con proveedores externos. Como Proveedores de pagos (Stripe, PayPal), Proveedores de datos (APIs externas).
+permite al sistema comunicarse con proveedores externos para obtener piezas, precios, inventarios y procesar órdenes de compra. Es un componente clave para automatizar el flujo de abastecimiento de un establecimiento automotriz.
+
+app automoviles geolocation y maps service 
+Permite obtener La ubicación del automóvil, La ubicación de sucursales o talleres para encontrar el taller más cercano.
+Gestiona la ubicación del usuario/vehículo, genera rutas, muestra mapas, permite búsquedas cercanas y habilita funciones como geofencing y navegación. Se integra con servicios externos como Google Maps para ofrecer datos geoespaciales en tiempo real.
+
+infraestructure ans security spring security+ JWT
+se encarga de proteger toda la aplicación, controlar accesos y asegurar que solo usuarios autorizados puedan usar los servicios del sistema, Es un framework de seguridad muy robusto en el ecosistema Java/Spring.
+Sirve para Autenticación (validar quién eres), Autorización (qué puedes hacer), Protección de endpoints (roles/privilegios), Control de sesiones, Encriptación de datos 
+
+infraestructure ans security spring security + jwt
+
+Spring Security es el framework de seguridad estándar para aplicaciones basadas en Spring. Al combinarlo con JWT, defines un sistema de seguridad sin estado (stateless), ideal para entornos de microservicios.
+
+Ventajas
+1.	Código Abierto y Gratis: Spring Security es una herramienta de código abierto desarrollada por la comunidad y mantenida por VMWare/Pivotal. JWT es un estándar abierto (RFC 7519).
+2.	Costo Cero en Licencias
+3.	JWT almacena la información de la sesión en el token mismo, eliminando la necesidad de que el servidor almacene el estado de la sesión (session state).
+4.	Elimina la necesidad de un costoso clúster de bases de datos o servicios de caché (como Redis) para almacenar sesiones, reduciendo los costos de hosting.
+5.	Al ser el estándar en el ecosistema Java/Spring, existe una inmensa cantidad de documentación, tutoriales y plantillas gratuitas.
+
+Por qué se selecciono 
+-	Proporciona una solución de seguridad full-stack de nivel empresarial, altamente escalable y sin costo de licencia, que encaja perfectamente con un backend Spring Boot y un API Gateway.
+-	Spring Security está diseñado para integrarse directamente con la API Gateway y los microservicios, manejando fácilmente la autenticación del token y la aplicación de políticas de autorización.
+
+Por qué no las demás Alternativas
+-	OAuth 2.0/OpenID Connect (OIDC) con Proveedor Externo: tienen Costo por Usuario Activo
+-	Seguridad Basada en Sesiones Tradicionales: Este modelo requiere almacenar la sesión en una base de datos o caché compartida (ej: Redis o Memcached) para que todos los servidores del backend puedan acceder a ella. Este almacenamiento y su administración (clustering, alta disponibilidad) aumenta el costo de infraestructura y mantenimiento.
+-	Implementación de Seguridad Propia (Ad-hoc): Intentar implementar tu propia lógica de seguridad desde cero es extremadamente peligroso y consume una cantidad insostenible de tiempo de los desarrolladores. El costo de una vulnerabilidad supera con creces cualquier ahorro.
 
 
 
