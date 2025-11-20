@@ -97,4 +97,7 @@ El backend deberá ser desarrollado en el lenguaje GoLang.
 
 # Diagrama de clase 
 
+![Diagrama de clases](diagramaClase.png)
+
+
 
