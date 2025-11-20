@@ -281,7 +281,7 @@ La solución está diseñada bajo un enfoque **cloud-agnostic**, escalables y de
 # Este es el diagrama de despliegue
 ## Arquitectura de referencia 
 
-![](arquictetura.png)
+![](arquitectura.png)
 
 
 ## Arquetipo de referencia
